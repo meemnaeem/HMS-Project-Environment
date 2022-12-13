@@ -1,10 +1,14 @@
 import _ from "lodash";
 window._ = _;
 
-import "bootstrap";
+// import { createPopper } from "@popperjs/core";
 
-import jQuery from "jquery";
-window.$ = jQuery;
+try {
+    window.$ = window.jQuery = require("jquery");
+    window.Popper = require("@popperjs/core");
+    window.bootstrap = require("bootstrap");
+    window.toastr = require("toastr");
+} catch (e) {}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -1,0 +1,14 @@
+<x-modals.modal>
+    <x-slot name="title">
+        Add a New Patient
+    </x-slot>
+
+    <x-slot name="content">
+        @include('livewire.admin.patient.add-form')
+    </x-slot>
+
+    <x-slot name="buttons">
+        <button wire:click.prevent="store()" class="btn btn-success close-modal" data-dismiss="modal">Save</button>
+
+    </x-slot>
+</x-modals.modal>

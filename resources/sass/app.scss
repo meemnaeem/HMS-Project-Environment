@@ -2,9 +2,11 @@
 @import url("https://fonts.bunny.net/css?family=Nunito");
 
 // Variables
-@import "variables";
-@import "custom.scss";
+@import "./variables";
 @import "../css/app.css";
 
 // Bootstrap
-@import "bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+// @import "~flatpickr/dist/flatpickr.css";
+@import '~flatpickr/dist/themes/light.css';
+@import "./custom";

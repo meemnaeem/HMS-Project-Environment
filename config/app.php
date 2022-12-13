@@ -54,9 +54,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://192.168.2.51'),
 
-    'asset_url' => env('ASSET_URL'),
+    'asset_url'  =>  env('APP_URL', 'http://192.168.2.51'),
 
     /*
     |--------------------------------------------------------------------------
@@ -196,6 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

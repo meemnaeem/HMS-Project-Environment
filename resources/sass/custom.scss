@@ -1,5 +1,41 @@
-body {
-    color: $primary;
-    background-color: $body-bg;
-    font-family: $font-family-sans-serif;
+// body {
+//     background-color: $yellow !important;
+//     color: $red;
+//     font-family: $fontfamily;
+//     font: 100% $fontfamily;
+// }
+
+// p {
+//     font-size: $size;
+//     color: $red;
+// }
+
+// p:last-of-type {
+//     color: $red;
+// }
+
+// p:last-of-type:hover {
+//     color: $red;
+// }
+
+// p:hover {
+//     color: $red;
+// }
+
+// h1 p {
+//     color: $red;
+// }
+
+div.dataTables_wrapper div.dataTables_length select {
+    width: 65px !important;
+}
+
+textarea#description.form-control {
+    height: 150px;
+}
+
+h4.user-name.mb-0 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-transform: capitalize;
 }
