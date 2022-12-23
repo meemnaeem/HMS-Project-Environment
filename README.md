@@ -7,3 +7,4 @@
 -   Livewire
 -   SASS
 -   Everything tested and working
+-   Admin section completed. Everything tested and working
