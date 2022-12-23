@@ -23,7 +23,7 @@ class ListUsers extends Component
 
     public function mount()
     {
-        $this->currentUrl = Route::current()->getName();
+        // $this->currentUrl = Route::current()->getName();
         // dd($this->currentUrl);
     }
 
@@ -159,14 +159,16 @@ class ListUsers extends Component
 
     public function render()
     {
-        $users = User::search($this->search)->latest()->paginate();
+        // $users = User::search($this->search)->latest()->paginate();
         return view('livewire.admin.users.list-users', [
-            'users' => $users,
-        ]);
+            'users' => User::all(),
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.users.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.users.index');
+    // }
 }

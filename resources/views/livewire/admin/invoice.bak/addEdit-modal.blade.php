@@ -4,7 +4,7 @@
             @if ($showEditModal)
                 <span>Edit Invoice</span>
             @else
-                <span>Add Invoice</span>
+                <span>Add New Invoice</span>
             @endif
         </h5>
 

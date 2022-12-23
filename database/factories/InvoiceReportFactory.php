@@ -18,10 +18,11 @@ class InvoiceReportFactory extends Factory
     public function definition()
     {
         return [
-             'patient_id'  => Patient::all()->random()->id,
-             'description' => $this->faker->text,
-             'amount' => $this->faker->numberBetween(10, 5000),
-             'status' => $this->faker->randomElement(["Due","Paid"]),
-         ];
+            'invoice_number' => $this->faker->bothify('#??###'),
+            'patient_id'  => Patient::all()->random()->id,
+            'description' => $this->faker->text,
+            'amount' => $this->faker->numberBetween(10, 5000),
+            'status' => $this->faker->randomElement(["Due", "Paid"]),
+        ];
     }
 }

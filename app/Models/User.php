@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\Review;
+use App\Models\Patient;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -23,7 +24,9 @@ class User extends Authenticatable
     use updatableAndCreatable, HasRoles;
 
     protected $fillable = [
+        // 'id',
         'title',
+        'email',
         'name',
         'username',
         'password',
@@ -49,7 +52,7 @@ class User extends Authenticatable
         'updated_by_id',
         'created_at',
         'updated_at',
-        
+
     ];
 
     protected $casts = [
@@ -99,6 +102,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class, 'user_id', 'id');
     }
+
+    // public function patient(): HasMany
+    // {
+    //     return $this->hasMany(Patient::class, 'user_id', 'id');
+    // }
 
     public function createdBy(): BelongsTo
     {

@@ -154,11 +154,13 @@ class Specialities extends Component
         $specialities = Speciality::all();
         return view('livewire.admin.speciality.specialities', [
             'specialities' => $specialities,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.speciality.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.speciality.index');
+    // }
 }

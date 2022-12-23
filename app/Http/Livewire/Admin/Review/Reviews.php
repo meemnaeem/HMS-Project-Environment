@@ -150,11 +150,13 @@ class Reviews extends Component
         $reviews = Review::all();
         return view('livewire.admin.review.reviews', [
             'reviews' => $reviews,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.review.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.review.index');
+    // }
 }

@@ -12,7 +12,7 @@
                     <a href="{{ route('admin.hr.admin') }}"><i class="fe fe-users"></i> <span>HR Management</span></a>
                 </li>
                 <li class="{{ request()->is('admin/appointment*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.appointment.index') }}"><i class="fe fe-layout"></i>
+                    <a href="{{ url('admin/appointment') }}"><i class="fe fe-layout"></i>
                         <span>Appointments</span></a>
                 </li>
                 <li class="{{ request()->is('admin/speciality*') ? 'active' : '' }}">

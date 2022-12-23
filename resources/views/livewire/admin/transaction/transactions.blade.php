@@ -77,11 +77,11 @@
                                         <td>{{ $transaction->patient_id }}</td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $transaction->patient->user->image) }}.jpg"
+                                                <a href="{{ url('admin/patient-profile', $transaction->patient_id) }}"
+                                                    class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
+                                                        src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $transaction->patient->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="#">
+                                                <a href="{{ url('admin/patient-profile', $transaction->patient_id) }}">
                                                     {{ $transaction->patient->name }}
                                                     {{-- {{ $transaction->patient_id }} --}}
                                                 </a>

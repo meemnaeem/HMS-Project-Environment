@@ -3,13 +3,13 @@
 
     <div class="row">
         <div class="col-sm-6 m-b-20">
-            <img alt="Logo" class="inv-logo img-fluid" src="assets/img/logo.png"">
+            <img alt="Logo" class="inv-logo img-fluid" src="{{ URL::asset('doccure/admin/assets/img/logo.png') }}">
         </div>
         <div class="col-sm-6 m-b-20">
             <div class="invoice-details">
-                <h3 class="text-uppercase">Invoice #INV-0001</h3>
+                <h3 class="text-uppercase">Invoice #INV-{{ $invoice->id }}</h3>
                 <ul class="list-unstyled mb-0">
-                    <li>Date: <span>March 12, 2019</span></li>
+                    <li>Date: <span>{{ $invoice->updated_at }}</span></li>
                 </ul>
             </div>
         </div>
@@ -29,27 +29,27 @@
             <h6>Invoice to</h6>
             <ul class="list-unstyled mb-0">
                 <li>
-                    <h5 class="mb-0"><strong>Charlene Reed</strong></h5>
+                    <h5 class="mb-0"><strong>{{ $invoice->patient->name }}</strong></h5>
                 </li>
-                <li>4417 Goosetown Drive</li>
-                <li>Taylorsville, NC, 28681</li>
+                <li>{{ $invoice->patient->address_1 }}</li>
+                {{-- <li>Taylorsville, NC, 28681</li>
                 <li>United States</li>
-                <li>8286329170</li>
-                <li><a href="#">charlenereed@example.com</a></li>
+                <li>8286329170</li> --}}
+                <li><a href="#">{{ $invoice->patient->email ?? $invoice->patient->user->email }}</a></li>
             </ul>
         </div>
         <div class="col-sm-6 col-lg-5 col-xl-4 m-b-20">
             <h6>Payment Details</h6>
             <ul class="list-unstyled invoice-payment-details mb-0">
                 <li>
-                    <h5>Total Due: <span class="text-right">$200</span></h5>
+                    <h5>Total Due: <span class="text-right">${{ $invoice->amount }}</span></h5>
                 </li>
-                <li>Bank name: <span>Profit Bank Europe</span></li>
+                {{-- <li>Bank name: <span>Profit Bank Europe</span></li>
                 <li>Country: <span>United Kingdom</span></li>
                 <li>City: <span>London E1 8BF</span></li>
                 <li>Address: <span>3 Goodman Street</span></li>
                 <li>IBAN: <span>KFH37784028476740</span></li>
-                <li>SWIFT code: <span>BPT4E</span></li>
+                <li>SWIFT code: <span>BPT4E</span></li> --}}
             </ul>
         </div>
     </div>

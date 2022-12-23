@@ -1,17 +1,22 @@
 <x-modals.delete>
     <x-slot name="title">
-        Delete Invoice
+        <h5 class="modal-title">
+            Delete Invoice
+        </h5>
+
     </x-slot>
 
     <x-slot name="content">
-        Are you sure to delete invoice?
+        <h1>
+            Are you sure to delete the invoice?
+        </h1>
     </x-slot>
 
     <x-slot name="buttons">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
-                class="fa fa-times m-1">Cancel</i></button>
+                class="fa fa-times mr-1">Cancel</i></button>
         <button type="button" wire:click.prevent="deleteInvoice" class="btn btn-danger"><i
-                class="fa fa-trash m-1">Delete</i>
+                class="fa fa-trash mr-1">Delete</i>
         </button>
     </x-slot>
 </x-modals.delete>

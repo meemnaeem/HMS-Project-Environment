@@ -82,15 +82,18 @@
                                         <td><input type="checkbox" class="form-checkbox" value="{{ $invoice->id }}"
                                                 wire:model="checked"> </td>
                                         {{-- <td>{{ $loop->iteration }}</td> --}}
-                                        <td>{{ $invoice->id }}</td>
+                                        <td><a
+                                                href="{{ url('admin/invoice', $invoice->id) }}">#INV-{{ $invoice->id }}</a>
+                                        </td>
                                         <td>{{ $invoice->patient_id }}</td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="#" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
+                                                <a href="{{ url('admin/patient-profile', $invoice->patient->id) }}"
+                                                    class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                                         src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $invoice->patient->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="#">{{ $invoice->patient->name }}</a>
+                                                <a
+                                                    href="{{ url('admin/patient-profile', $invoice->patient->id) }}">{{ $invoice->patient->name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ Str::limit($invoice->description, 30) }}</td>

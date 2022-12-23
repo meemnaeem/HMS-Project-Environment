@@ -151,11 +151,13 @@ class Transactions extends Component
         $transactions = Transaction::all();
         return view('livewire.admin.transaction.transactions', [
             'transactions' => $transactions,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.transaction.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.transaction.index');
+    // }
 }

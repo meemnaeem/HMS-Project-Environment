@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Appointment;
 
 use App\Models\Appointment;
@@ -149,11 +150,12 @@ class Appointments extends Component
         $appointments = Appointment::all();
         return view('livewire.admin.appointment.appointments', [
             'appointments' => $appointments,
-        ]);
+        ])
+            ->extends('layouts.app');
     }
 
-    public function index()
-    {
-        return view('admin.appointment.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.appointment.index');
+    // }
 }

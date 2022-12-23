@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Livewire\Admin\Invoice;
 
-use Livewire\Component;
 use App\Models\Invoice;
+use Livewire\Component;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -86,7 +86,7 @@ class Invoices extends Component
     public function changeStatus($invoiceId, $status)
     {
         $updateStatus = $status == 0 ? 1 : 0;
-        Invoice::where('id', $invoiceId)->update(['status' => $updateStatus]);
+        Invoice::find($invoiceId)->update(['status' => $updateStatus]);
     }
 
     public function getInvoicesProperty()
@@ -144,16 +144,19 @@ class Invoices extends Component
         $this->dispatchBrowserEvent('hide-multi-delete-modal', ['message' => 'Selected invoices deleted successfully!']);
     }
 
+
     public function render()
     {
         $invoices = Invoice::all();
         return view('livewire.admin.invoice.invoices', [
             'invoices' => $invoices,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.invoice.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.invoice.index');
+    // }
 }

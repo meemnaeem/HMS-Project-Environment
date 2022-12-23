@@ -74,11 +74,11 @@
                                                 wire:model="checked"> </td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
+                                                <a href="{{ url('admin/patient-profile', $review->patient_id) }}"
+                                                    class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                                         src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $review->patient->user->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="#">
+                                                <a href="{{ url('admin/patient-profile', $review->patient_id) }}">
                                                     {{ $review->patient->user->name }}
                                                     {{-- {{ $review->patient_id }} --}}
                                                 </a>
@@ -86,11 +86,11 @@
                                         </td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
+                                                <a href="{{ url('admin/user', $review->user_id) }}"
+                                                    class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                                         src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $review->user->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="#">
+                                                <a href="{{ url('admin/user', $review->user_id) }}">
                                                     {{ $review->user->name }}
                                                     {{-- {{ $review->user_id }} --}}
                                                 </a>

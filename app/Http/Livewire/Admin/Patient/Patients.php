@@ -2,16 +2,23 @@
 
 namespace App\Http\Livewire\Admin\Patient;
 
+use App\Models\User;
 use App\Models\Patient;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 class Patients extends Component
 {
-    public $state = [];
+    public $patientarr = [];
+    public $userarr = [];
     public $showEditModal = false;
+    public $user;
+    public $uid;
     public $patient;
+    public $validatedData;
     public $patientIdBeingRemoved = null;
     public $selectAll = false;
     public $checked = [];
@@ -20,59 +27,145 @@ class Patients extends Component
     public $deleteId = '';
     public $patientsQuery = '';
 
+    // multistep wizarform
+    public $currentStep = 1;
+
 
     public function mount()
     {
-        $this->currentUrl = Route::current()->getName();
-    }
-
-    public function getPatientsQueryProperty()
-    {
-        return Patient::search($this->search);
     }
 
     public function addNew()
     {
-        $this->state = [];
+        $this->patientarr = [];
+        $this->userarr = [];
         $this->showEditModal = false;
-        $this->dispatchBrowserEvent('show-modal');
+        $this->dispatchBrowserEvent('show-patient-modal');
     }
 
-    public function validateData()
-    {
-        $validData = Validator::make($this->state, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'phone' => 'required',
-        ])->validate();
-        return $validData;
-    }
-
-    public function createPatient()
-    {
-        $validatedData = $this->validateData();
-        Patient::create($validatedData);
-        $this->dispatchBrowserEvent('hide-modal', ['message' => 'Patient added successfully!']);
-    }
-
-    public function show(Patient $patient)
-    {
-        return view('admin.patient.show', compact('patient'));
-    }
- 
-    public function edit(Patient $patient)
+    public function edit($id)
     {
         $this->showEditModal = true;
-        $this->patient = $patient;
-        $this->state = $patient->toArray();
-        $this->dispatchBrowserEvent('show-modal');
+
+        $this->patientarr = Patient::find($id)->toArray();
+        $this->userarr = User::find($this->patientarr['user_id'])->toArray();
+
+        $this->dispatchBrowserEvent('show-patient-modal', [
+            'id' => $id,
+        ]);
     }
 
-    public function updatePatient()
+    // multistep wizarform
+    public function firstStepSubmit()
     {
-        $validatedData = $this->validateData();
-        $this->patient->update($validatedData);
-        $this->dispatchBrowserEvent('hide-modal', ['message' => 'Patient updated successfully!']);
+        if ($this->showEditModal) {
+            $this->uid = $this->patientarr['user_id'];
+        }
+        Validator::make($this->userarr, [
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->uid)
+            ],
+            'password' => 'sometimes|required',
+        ])->validate();
+        // } else {
+        //     Validator::make($this->userarr, [
+        //         'name' => 'required',
+        //         'email' => 'required|email|unique:users',
+        //         'password' => 'required|confirmed',
+        //         'phone' => 'required',
+        //         'image' => 'required',
+        //     ])->validate();
+        // }
+        $this->currentStep = 2;
+    }
+
+    /**
+     * Write code on Method
+     */
+    public function secondStepSubmit()
+    {
+        Validator::make($this->patientarr, [
+            'name' => 'required',
+            'phone' => 'required',
+            'image' => 'required',
+            'age' => 'required',
+            // 'symptoms' => 'required',
+            'address_1' => 'required',
+        ])->validate();
+
+        $this->currentStep = 3;
+    }
+
+    /**
+     * Write code on Method
+     */
+    public function submitForm()
+    {
+        if ($this->showEditModal) {
+            $user = User::find($this->patientarr['user_id'])->update(
+                [
+                    'email' => $this->userarr['email'],
+                ]
+            );
+            Patient::find($this->patientarr['id'])->update(
+                [
+                    'name' => $this->patientarr['name'],
+                    'phone' => $this->patientarr['phone'],
+                    'image' => $this->patientarr['image'],
+                    'age' => $this->patientarr['age'],
+                    // 'symptoms' => $this->patientarr['symptoms'],
+                    'address_1' => $this->patientarr['address_1'],
+                ]
+            );
+        } else {
+            $user = User::create([
+                'email' => $this->userarr['email'],
+                'password' => Hash::make($this->userarr['password']),
+            ]);
+            Patient::create(
+                [
+                    'name' => $this->patientarr['name'],
+                    'phone' => $this->patientarr['phone'],
+                    'image' => $this->patientarr['image'],
+                    'age' => $this->patientarr['age'],
+                    // 'symptoms' => $this->patientarr['symptoms'],
+                    'address_1' => $this->patientarr['address_1'],
+                    'user_id' => $user->id,
+                ]
+            );
+        }
+
+        $this->dispatchBrowserEvent('hide-modal', ['message' => 'Patient added successfully!']);
+        $this->resetForm();
+        $this->currentStep = 1;
+    }
+
+    /**
+     * Write code on Method
+     */
+    public function back($step)
+    {
+        $this->currentStep = $step;
+    }
+
+    /**
+     * Write code on Method
+     */
+    public function resetForm()
+    {
+        $this->patientarr = [];
+        $this->userarr = [];
+        $this->showEditModal = false;
+    }
+
+    // End of multistep wizardform
+
+
+    public function getPatientsQueryProperty()
+    {
+        return Patient::search($this->search);
     }
 
     public function confirmPatientRemoval($patientId)
@@ -149,17 +242,14 @@ class Patients extends Component
         $this->dispatchBrowserEvent('hide-multi-delete-modal', ['message' => 'Selected patients deleted successfully!']);
     }
 
-
     public function render()
     {
+        // $patients = User::Role('patient')->paginate();
         $patients = Patient::all();
         return view('livewire.admin.patient.patients', [
             'patients' => $patients,
-        ]);
-    }
-
-    public function index()
-    {
-        return view('admin.patient.index');
+        ])
+            ->extends('layouts.app')
+            ->section('content');
     }
 }

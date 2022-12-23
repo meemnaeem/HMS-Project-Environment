@@ -150,11 +150,13 @@ class InvoiceReports extends Component
         $invoices = Invoice::all();
         return view('livewire.admin.invoice-report.invoice-reports', [
             'invoices' => $invoices,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.invoice-report.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.invoice-report.index');
+    // }
 }

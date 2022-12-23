@@ -36,8 +36,8 @@
                                     <th>Patient Name</th>
                                     <th>Age</th>
                                     <th>Address</th>
-                                    <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Symptoms</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                             </thead>
@@ -84,22 +84,22 @@
                                         <td>{{ $patient->id }}</td>
                                         <td>
                                             <h2 class="table-avatar" {{-- {{ route('admin.patient.show', $patient->id) }} --}} ">
-                                                <a href="patients/show/{{ $patient->id }}" class="avatar avatar-sm mr-2"><img
+                                                <a href="{{ url('admin/patient-profile', $patient->id) }}" class="avatar avatar-sm mr-2"><img
                                                         class="avatar-img rounded-circle"
-                                                        src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $patient->image) }}.jpg"
+                                                        src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $patient->image ?? 2) }}.jpg"
                                                 alt="User Image"></a>
-                                                <a href="patients/show/{{ $patient->id }}">{{ $patient->name }}</a>
+                                                <a href="{{ url('admin/patient-profile', $patient->id) }}">{{ $patient->name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ $patient->age }}</td>
-                                        <td>{{ $patient->home_address }}</td>
-                                        <td>{{ $patient->email }}</td>
-                                        <td>{{ $patient->phone }}</td>
+                                        <td>{{ $patient->address_1 ?? $patient->user->address_1 . ' (contact)' }}</td>
+                                        <td>{{ $patient->phone ?? $patient->user->phone . ' (contact)' }}</td>
+                                        <td>{{ substr($patient->symptoms, 0, 20) }}</td>
                                         <td class="text-right">
                                             <div class="actions">
                                                 <a class="btn btn-sm bg-success-light" data-toggle="modal"
                                                     href="#edit_patients_details"
-                                                    wire:click.prevent="edit({{ $patient }})">
+                                                    wire:click.prevent="edit({{ $patient->id }})">
                                                     <i class="fe fe-pencil"></i> Edit
                                                 </a>
                                                 <a data-toggle="modal" href="#deleteModal"
@@ -110,7 +110,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                            @empty
+@empty
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -119,7 +119,7 @@
                                         </td>
                                         <td></td>
                                     </tr>
-                                 @endforelse
+                                                                     @endforelse
 
                             </tbody>
                         </table>

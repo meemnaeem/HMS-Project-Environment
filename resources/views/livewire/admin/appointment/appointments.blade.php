@@ -79,20 +79,22 @@
                                                 wire:model="checked"> </td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
+                                                <a href="{{ url('admin/user', $appointment->user->id) }}"
+                                                    class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                                         src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $appointment->user->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="#">{{ $appointment->user->name }}</a>
+                                                <a
+                                                    href="{{ url('admin/user', $appointment->user->id) }}">{{ $appointment->user->name }}</a>
                                             </h2>
                                         </td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $appointment->patient->user->image) }}.jpg"
+                                                <a href="{{ url('admin/user', $appointment->patient->id) }}"
+                                                    class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
+                                                        src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $appointment->patient->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="#">{{ $appointment->patient->user->name }}</a>
+                                                <a
+                                                    href="{{ url('admin/patient-profile', $appointment->patient->id) }}">{{ $appointment->patient->name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ $appointment->date }}</td>

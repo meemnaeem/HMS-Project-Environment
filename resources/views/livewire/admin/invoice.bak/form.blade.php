@@ -14,7 +14,7 @@
     <div class="mb-3">
         <label for="amount" class="form-label">amount</label>
         <input type="text" wire:model.defer="state.amount" class="form-control @error('amount') is-invalid @enderror"
-            id="amount" aria-describedby="amountHelp" placeholder="Enter your amount">
+            id="amount" aria-describedby="amountHelp" placeholder="Enter amount">
         @error('amount')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -25,7 +25,7 @@
         <label for="description" class="form-label">description</label>
         <input type="text" wire:model.defer="state.description"
             class="form-control @error('description') is-invalid @enderror" id="description"
-            aria-describedby="descriptionHelp" placeholder="Enter your description">
+            aria-describedby="descriptionHelp" placeholder="Enter description">
         @error('description')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -46,21 +46,3 @@
         </label>
     </div>
 </form>
-
-
-{{-- <form>
-    @csrf
-    <div class="mb-6">
-        <label class="flex flex-col block">
-            <select class="block w-full mt-1" name="status" type="status" wire:model.defer="state.status"
-                class="form-control" id="status">
-                <option value="Paid" {{ $invoice->status == 'Paid' ? 'selected' : '' }}>
-                    Paid
-                </option>
-                <option value="Due" {{ $invoice->status == 'Due' ? 'selected' : '' }}>
-                    Due
-                </option>
-            </select>
-        </label>
-    </div>
-</form> --}}

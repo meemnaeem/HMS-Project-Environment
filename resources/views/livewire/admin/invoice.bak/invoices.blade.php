@@ -1,146 +1,160 @@
-<div>
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="row">
-            <div class="col-sm-7 col-auto">
-                <h3 class="page-title">List of Invoices</h3>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Invoices</li>
+<!-- Invoice Container -->
+<div class="invoice-container">
+
+    <div class="row">
+        <div class="col-sm-6 m-b-20">
+            <img alt="Logo" class="inv-logo img-fluid" src="assets/img/logo.png"">
+        </div>
+        <div class="col-sm-6 m-b-20">
+            <div class="invoice-details">
+                <h3 class="text-uppercase">Invoice #INV-0001</h3>
+                <ul class="list-unstyled mb-0">
+                    <li>Date: <span>March 12, 2019</span></li>
                 </ul>
             </div>
         </div>
     </div>
-    <!-- /Page Header -->
-
     <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <div class="flex float-right">
-                            <x-searchbox name="search" placeholder="" />
-                        </div>
-                        <table class="datatable table table-hover table-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th><input type="checkbox" name="selectAll" wire:model="selectAll"> </th>
-                                    <th>Invoice Number</th>
-                                    <th>Patient ID</th>
-                                    <th>Patient Name</th>
-                                    <th>Description</th>
-                                    <th>Total Amount</th>
-                                    <th>Created Date</th>
-                                    <th>Status</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
-                            </thead>
+        <div class="col-sm-12 m-b-20">
+            <ul class="list-unstyled mb-0">
+                <li>Doccure Hospital</li>
+                <li>3864 Quiet Valley Lane,</li>
+                <li>Sherman Oaks, CA, 91403</li>
+                <li>GST No:</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-lg-7 col-xl-8 m-b-20">
+            <h6>Invoice to</h6>
+            <ul class="list-unstyled mb-0">
+                <li>
+                    <h5 class="mb-0"><strong>Charlene Reed</strong></h5>
+                </li>
+                <li>4417 Goosetown Drive</li>
+                <li>Taylorsville, NC, 28681</li>
+                <li>United States</li>
+                <li>8286329170</li>
+                <li><a href="#">charlenereed@example.com</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-6 col-lg-5 col-xl-4 m-b-20">
+            <h6>Payment Details</h6>
+            <ul class="list-unstyled invoice-payment-details mb-0">
+                <li>
+                    <h5>Total Due: <span class="text-right">$200</span></h5>
+                </li>
+                <li>Bank name: <span>Profit Bank Europe</span></li>
+                <li>Country: <span>United Kingdom</span></li>
+                <li>City: <span>London E1 8BF</span></li>
+                <li>Address: <span>3 Goodman Street</span></li>
+                <li>IBAN: <span>KFH37784028476740</span></li>
+                <li>SWIFT code: <span>BPT4E</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ITEM</th>
+                    <th class="d-none d-sm-table-cell">DESCRIPTION</th>
+                    <th class="text-nowrap">UNIT COST</th>
+                    <th>QTY</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>medicine1</td>
+                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit</td>
+                    <td>$10</td>
+                    <td>2</td>
+                    <td>$10</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>medicine2</td>
+                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit</td>
+                    <td>$10</td>
+                    <td>1</td>
+                    <td>$10</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>medicine3</td>
+                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit</td>
+                    <td>$90</td>
+                    <td>1</td>
+                    <td>$90</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>medicine4</td>
+                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit</td>
+                    <td>$70</td>
+                    <td>1</td>
+                    <td>$70</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>medicine5</td>
+                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit</td>
+                    <td>70</td>
+                    <td>1</td>
+                    <td>$70</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div class="row invoice-payment">
+            <div class="col-sm-7">
+            </div>
+            <div class="col-sm-5">
+                <div class="m-b-20">
+                    <h6>Total due</h6>
+                    <div class="table-responsive no-border">
+                        <table class="table mb-0">
                             <tbody>
-                                @forelse ($invoices as $invoice)
-                                    @if ($loop->first)
-                                        @if (count($checked) > 1)
-                                            <tr class="bg-pink-100">
-                                                <td colspan="12">
-                                                    <div class="row">
-                                                        <div class="col-md-9 pull-left">
-                                                            You have selected ({{ count($checked) }})
-                                                            {{ Str::plural('Row', count($checked)) }}
-                                                            &nbsp; Do you want to select all? &nbsp;
-                                                            <a href="javascript:()"
-                                                                wire:click="SelectAllRecord()">Yes</a>
-                                                        </div>
-                                                        <div class="col-md-3 pull-right">
-                                                            <div class="btn-group">
-                                                                <button class="btn btn-success btn-flat btn-sm"
-                                                                    wire:click="BulkExport()"><i
-                                                                        class="fa fa-file-excel-o m-1"></i>Bulk
-                                                                    Export</button>
-
-                                                                <a class="btn btn-danger btn-flat btn-sm"
-                                                                    wire:click.prevent="confirmInvoicesRemoval({{ $invoice->id }})"
-                                                                    data-toggle="modal" data-target="#deleteModal"><i
-                                                                        class="fa fa-trash m-1"></i>Bulk
-                                                                    Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endif
-
-                                    <tr
-                                        class="{{ $selectAll == true || in_array($invoice->id, $checked) ? 'bg-green-100' : '' }}">
-                                        <td><input type="checkbox" class="form-checkbox" value="{{ $invoice->id }}"
-                                                wire:model="checked"> </td>
-                                        <td>{{ $invoice->id }}</td>
-                                        <td>{{ $invoice->patient_id }}</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{{ asset('doccure/assets/img/doctors/doctor-thumb-02.jpg') }}"
-                                                        alt="User Image"></a>
-                                                <a href="#">
-                                                    {{ $invoice->patient->name }}
-                                                    {{-- {{ $invoice->patient_id }} --}}
-                                                </a>
-                                            </h2>
-                                        </td>
-                                        <td>{{ Str::limit($invoice->description, 30) }}</td>
-                                        <td>{{ $invoice->amount }}</td>
-                                        <td>{{ $invoice->created_at->format('d M Y') }}</td>
-                                        <td>
-                                            <span
-                                                class="badge badge-pill inv-badge {{ $invoice->status == 'Paid' ? 'bg-success' : 'bg-danger' }}"><a
-                                                    href="#edit_invoices_details"
-                                                    wire:click.prevent="edit({{ $invoice }})">{{ $invoice->status }}</a></span>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="actions">
-                                                <a class="btn btn-sm bg-success-light" data-toggle="modal"
-                                                    href="#edit_specialities_details"
-                                                    wire:click.prevent="edit({{ $invoice }})">
-                                                    <i class="fe fe-pencil"></i> Edit
-                                                </a>
-                                                <a data-toggle="modal" href="#deleteModal"
-                                                    class="btn btn-sm bg-danger-light"
-                                                    wire:click.prevent="confirmInvoiceRemoval({{ $invoice->id }})">
-                                                    <i class="fe fe-trash"></i> Delete
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="12">
-                                            <x-notfound />
-                                        </td>
-                                    </tr>
-                                @endforelse
-
+                                <tr>
+                                    <th>Subtotal:</th>
+                                    <td class="text-right">$250</td>
+                                </tr>
+                                <tr>
+                                    <th>Tax: <span class="text-regular">(25%)</span></th>
+                                    <td class="text-right">$50</td>
+                                </tr>
+                                <tr>
+                                    <th>Total:</th>
+                                    <td class="text-right text-primary">
+                                        <h5>$200</h5>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="invoice-info">
+            <h5>Other information</h5>
+            <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+                sed dictum ligula, cursus blandit risus. Maecenas eget metus non tellus dignissim
+                aliquam ut a ex. Maecenas sed vehicula dui, ac suscipit lacus. Sed finibus leo vitae
+                lorem interdum, eu scelerisque tellus fermentum. Curabitur sit amet lacinia lorem.
+                Nullam finibus pellentesque libero.</p>
+        </div>
     </div>
 
-
-    <!-- Add Modal -->
-    @include('livewire.admin.invoice.addEdit-modal')
-    {{-- <x-modals.addModal :data="$patient" /> --}}
-
-    {{-- Delete modal --}}
-    @include('livewire.admin.invoice.delete-invoice')
-    {{-- <x-modals.delete :data="$patient" /> --}}
-
-    @include('livewire.admin.invoice.delete-invoices')
-    {{-- <x-modals.delete :data="$patient" /> --}}
-
-    <!-- Edit Details Modal -->
-    {{-- <x-modals.updateModal :data="$patient" /> --}}
-    {{-- <x-modals.modal :data="$patient" /> --}}
 </div>
+<!-- /Invoice Container -->

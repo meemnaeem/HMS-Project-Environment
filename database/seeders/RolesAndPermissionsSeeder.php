@@ -410,5 +410,6 @@ class RolesAndPermissionsSeeder extends Seeder
                             'view-invoice']);
 
         Role::firstOrCreate(['name' => 'super-admin']);
+        Role::firstOrCreate(['name' => 'unassigned']);
     }
 }

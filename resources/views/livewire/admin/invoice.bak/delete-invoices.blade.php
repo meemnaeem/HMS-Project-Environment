@@ -14,8 +14,9 @@
 
     <x-slot name="buttons">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
-                class="fa fa-times m-1">Cancel</i></button>
-        <button type="button" wire:click.prevent="delete" class="btn btn-danger"><i class="fa fa-trash m-1">Delete</i>
+                class="fa fa-times mr-1">Cancel</i></button>
+        <button type="button" wire:click.prevent="delete" class="btn btn-danger"><i class="fa fa-trash"><span
+                    class="m-1">Delete</span></i>
         </button>
     </x-slot>
 </x-modals.multi-delete>

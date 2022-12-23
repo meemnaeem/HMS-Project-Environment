@@ -61,6 +61,7 @@
         <div class="page-wrapper">
             <div class="content container-fluid">
                 @yield('content')
+                {{-- {{ $slot }} --}}
             </div>
 
         </div>
@@ -108,6 +109,40 @@
         });
 
         $(document).ready(function() {
+            $(document).ready(function() {
+                @if (Session::has('message'))
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true
+                    }
+                    toastr.success("{{ session('message') }}");
+                @endif
+
+                @if (Session::has('error'))
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true
+                    }
+                    toastr.error("{{ session('error') }}");
+                @endif
+
+                @if (Session::has('info'))
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true
+                    }
+                    toastr.info("{{ session('info') }}");
+                @endif
+
+                @if (Session::has('warning'))
+                    toastr.options = {
+                        "closeButton": true,
+                        "progressBar": true
+                    }
+                    toastr.warning("{{ session('warning') }}");
+                @endif
+            });
+
             toastr.options = {
                 "positionClass": "toast-top-right",
                 "progressBar": true,
@@ -116,6 +151,21 @@
 
             window.addEventListener('hide-modal', function(e) {
                 $("#myModal").modal('hide');
+                toastr.success(event.detail.message, 'Success!');
+            });
+
+            window.addEventListener('hide-assign-modal', function(e) {
+                $("#assignModal").modal('hide');
+                toastr.success(event.detail.message, 'Success!');
+            });
+
+            window.addEventListener('hide-patient1-modal', function(e) {
+                $("#myModal").modal('hide')
+                $("#patientModal").modal('show');
+            });
+
+            window.addEventListener('hide-patient2-modal', function(e) {
+                $("#patientModal").modal('hide');
                 toastr.success(event.detail.message, 'Success!');
             });
 
@@ -133,26 +183,26 @@
                 toastr.success(event.detail.message, 'Success!');
             });
 
-            // window.addEventListener('hide-form', function(e) {
-            //     $("#form").modal('hide');
-            //     toastr.success(event.detail.message, 'Success!');
-            // });
         });
 
-        // window.addEventListener('openModal', function(e) {
-        //     $("#deleteModal").modal('show');
-        // });
-
-        // window.addEventListener('hideModal', function(e) {
-        //     $("#deleteModal").modal('hide');
-        // });
-
-        // window.livewire.on('closeModal', () => {
-        //     $('.modal').modal('hide');
-        // });
+        window.addEventListener('openModal', function(e) {
+            $("#deleteModal").modal('show');
+        });
 
         window.addEventListener('show-modal', function(e) {
             $("#myModal").modal('show');
+        });
+
+        window.addEventListener('show-patient-modal', function(e) {
+            $("#myModal").modal('show');
+        });
+
+        window.addEventListener('show-user-modal', function(e) {
+            $("#myModal").modal('show');
+        });
+
+        window.addEventListener('open-assign-modal', function(e) {
+            $("#assignModal").modal('show');
         });
 
         window.addEventListener('show-delete-modal', function(e) {
@@ -162,14 +212,9 @@
         window.addEventListener('show-multi-delete-modal', function(e) {
             $("#multiDeleteModal").modal('show');
         });
-        // window.addEventListener('show-form', function(e) {
-        //     $("#form").modal('show');
-        // });
-        // window.addEventListener('show-update-patient', function(e) {
-        //     $("#modal").modal('show');
-        // });
-        // window.addEventListener('show-message', function(e) {
-        //     toastr.success(event.detail.message, 'Success!');
+        // window.addEventListener('preview-form', function(e) {
+        //     let name = document.getElementById("name").value;
+        //     document.getElementById("patientname").innerHTML = name;
         // });
     </script>
 

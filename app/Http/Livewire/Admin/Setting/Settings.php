@@ -151,11 +151,13 @@ class Settings extends Component
         $settings = Setting::all();
         return view('livewire.admin.setting.settings', [
             'settings' => $settings,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.setting.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.setting.index');
+    // }
 }

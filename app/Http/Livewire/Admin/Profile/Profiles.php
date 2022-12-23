@@ -201,11 +201,13 @@ class Profiles extends Component
         $users = User::search($this->search)->latest()->paginate();
         return view('livewire.admin.profile.profiles', [
             'users' => $users,
-        ]);
+        ])
+        ->extends('layouts.app')
+            ->section('content');
     }
 
-    public function index()
-    {
-        return view('admin.profile.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.profile.index');
+    // }
 }

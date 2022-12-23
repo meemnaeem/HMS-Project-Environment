@@ -19,12 +19,12 @@ class DoctorFactory extends Factory
     public function definition()
     {
         return [
-        'about_doctor' => $this->faker->text,
-        'charge' => $this->faker->numberBetween(0, 1000),
-        'experience' => $this->faker->text,
-        'user_id' => User::all()->random()->id,
-        'specialist_id' => Specialist::all()->random()->id,
-        'image' => $this->faker->numberBetween(1, 9),
+            'about_doctor' => $this->faker->text,
+            'charge' => $this->faker->numberBetween(0, 1000),
+            'experience' => $this->faker->text,
+            'user_id' => User::all()->random()->id,
+            'specialist_id' => Specialist::all()->random()->id,
+            // 'image' => $this->faker->numberBetween(1, 9),
 
         ];
     }

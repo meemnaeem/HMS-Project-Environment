@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Doctor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,18 +19,22 @@ class PatientFactory extends Factory
     public function definition()
     {
         return [
-            'registration_no' => $this->faker->numberBetween(0, 1000),
-            'registration_date' => $this->faker->date(),
             'name' => $this->faker->name,
             'dob' => $this->faker->date(),
+            'gender' => $this->faker->randomElement(['Male', 'Female']),
+            // 'home_address' => $this->faker->address,
+            'image' => $this->faker->numberBetween(1, 15),
+            'registration_no' => $this->faker->numberBetween(0, 1000),
+            'registration_date' => $this->faker->date(),
             'age' => $this->faker->numberBetween(1, 100),
-            'gender' => $this->faker->randomElement(['Male','Female']),
             'email' => $this->faker->email(),
             'phone' => $this->faker->phoneNumber(),
-            'home_address' => $this->faker->address,
-            'father_address' => $this->faker->address,
+            'address_1' => $this->faker->address,
+            'address_2' => $this->faker->address,
+            'description' => $this->faker->text,
+            'symptoms' => $this->faker->text,
             'user_id' => User::all()->random()->id,
-            'image' => $this->faker->numberBetween(1, 15),
+            'doctor_id' => Doctor::all()->random()->id,
         ];
     }
 }

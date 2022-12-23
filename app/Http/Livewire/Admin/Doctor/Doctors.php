@@ -26,7 +26,9 @@ class Doctors extends Component
     public function render()
     {
         $this->doctors = Doctor::all();
-        return view('livewire.admin.doctor.doctors');
+        return view('livewire.admin.doctor.doctors')
+        ->extends('layouts.app')
+            ->section('content');
     }
 
         public function index()

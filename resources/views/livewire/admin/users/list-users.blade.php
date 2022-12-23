@@ -80,7 +80,16 @@
                                         {{-- <td>{{ $loop->iteration }}</td> --}}
                                         <td>{{ $user->id }}</td>
                                         <td>
-                                            {{ $user->name }}</td>
+                                            <h2 class="table-avatar">
+                                                <a href="{{ route('admin.hr.show', $user->id) }}"
+                                                    class="avatar avatar-sm mr-2">
+                                                    <img src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $user->image) }}.jpg"
+                                                        width="50" class="avatar-img rounded-circle" alt="">
+                                                </a>
+                                                <a href="{{ route('admin.hr.show', $user->id) }}">{{ $user->name }}
+                                                </a>
+                                            </h2>
+                                        </td>
                                         <td>{{ $user->email }}</td>
                                         <td>
                                             <div class="status-toggle">

@@ -44,6 +44,7 @@ use App\Models\Immunization;
 use App\Models\PatientVisit;
 use App\Models\Prescription;
 use App\Models\Investigation;
+use App\Models\InvoiceReport;
 use App\Models\OperationType;
 use App\Models\PatientRecord;
 use App\Models\BillingInvoice;
@@ -69,28 +70,30 @@ class TablesSeeder extends Seeder
     {
         // User::factory()->count(20)->create();
         // foreach (Role::all() as $role) {
-            //     $users = User::factory()->count(20)->create();
-            //     foreach ($users as $user) {
-                //         $user->assignRole($role);
-                //     }
+        //     $users = User::factory()->count(20)->create();
+        //     foreach ($users as $user) {
+        //         $user->assignRole($role);
+        //     }
         // }
-                
-                
+
+
         $users = User::factory()->count(20)->create();
         foreach ($users as $user) {
             $role = Role::all()->random()->name;
             $user->assignRole($role);
         }
-        
-        Patient::factory()->count(50)->create();
-        Speciality::factory()->count(50)->create();
+
+        Specialist::factory()->count(20)->create();
+        Doctor::factory()->count(20)->create();
+        Patient::factory()->count(20)->create();
+        Speciality::factory()->count(20)->create();
         // Nurse::factory()->count(20)->create();
-        // Doctor::factory()->count(20)->create();
-        Appointment::factory()->count(50)->create();
-        Review::factory()->count(50)->create();
-        Transaction::factory()->count(50)->create();
-        Invoice::factory()->count(50)->create();
-        Task::factory()->count(50)->create();
+        Appointment::factory()->count(20)->create();
+        Review::factory()->count(20)->create();
+        Transaction::factory()->count(20)->create();
+        Invoice::factory()->count(20)->create();
+        InvoiceReport::factory()->count(20)->create();
+        Task::factory()->count(20)->create();
         // Advice::factory()->count(40)->create();
         // Allergy::factory()->count(40)->create();
         // Bed::factory()->count(40)->create();

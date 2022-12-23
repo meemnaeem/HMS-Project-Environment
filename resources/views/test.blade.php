@@ -72,6 +72,9 @@
     <p class="text-xl ...">The quick brown fox ...</p>
     <p class="text-2xl ...">The quick brown fox ...</p>
 
+    <x-flatpickr name="dob" value="" />
+
+
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Bootstrap modal

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -17,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.admins.users.index');
+        return view('admin.hr.index');
     }
 
     /**
@@ -27,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('backend.admins.users.create', ['permisstions' => Permission::get()]);
+        return view('admin.hr.create', ['permisstions' => Permission::get()]);
     }
 
     /**
@@ -63,7 +62,7 @@ class UserController extends Controller
     public function edit(User $user, UserService $userService)
     {
         $userService->editUserData($user);
-        return view('backend.admins.users.edit', compact('user'));
+        return view('admin.hr.edit', compact('user'));
     }
 
     /**
