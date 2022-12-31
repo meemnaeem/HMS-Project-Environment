@@ -17,7 +17,7 @@ class Doctors extends Component
     public $created_by_id;
     public $updated_by_id;
     public $updateMode = false;
-   
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,23 +27,23 @@ class Doctors extends Component
     {
         $this->doctors = Doctor::all();
         return view('livewire.admin.doctor.doctors')
-        ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 
-        public function index()
-        {
-            $doctors = Doctor::all();
+    public function index()
+    {
+        $doctors = Doctor::all();
 
-            return view('admin.doctor.index', compact('doctors'));
-        }
+        return view('admin.doctor.index', compact('doctors'));
+    }
 
-  
+
     /**
-         * The attributes that are mass assignable.
-         *
-         * @var array
-         */
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     private function resetInputFields()
     {
         $this->doctor_id = '';
@@ -55,7 +55,7 @@ class Doctors extends Component
         $this->created_by_id = '';
         $this->updated_by_id = '';
     }
-   
+
     /**
      * The attributes that are mass assignable.
      *
@@ -64,22 +64,22 @@ class Doctors extends Component
     public function store()
     {
         $validatedDate = $this->validate([
-    'about_doctor' => 'required',
-    'charge' => 'required',
-    'experience' => 'required',
-    'user_id' => 'required',
-    'specialist_id' => 'required',
-    'created_by_id' => 'required',
-    'updated_by_id' => 'required',
+            'about_doctor' => 'required',
+            'charge' => 'required',
+            'experience' => 'required',
+            'user_id' => 'required',
+            'specialist_id' => 'required',
+            'created_by_id' => 'required',
+            'updated_by_id' => 'required',
         ]);
-  
+
         Doctor::create($validatedDate);
-  
+
         session()->flash('message', 'Doctor Created Successfully.');
-  
+
         $this->resetInputFields();
     }
-  
+
     /**
      * The attributes that are mass assignable.
      *
@@ -98,7 +98,7 @@ class Doctors extends Component
         $this->updated_by_id = $doctor->updated_by_id;
         $this->updateMode = true;
     }
-  
+
     /**
      * The attributes that are mass assignable.
      *
@@ -109,7 +109,7 @@ class Doctors extends Component
         $this->updateMode = false;
         $this->resetInputFields();
     }
-  
+
     /**
      * The attributes that are mass assignable.
      *
@@ -118,33 +118,33 @@ class Doctors extends Component
     public function update()
     {
         $validatedDate = $this->validate([
-    'about_doctor' => 'required',
-    'charge' => 'required',
-    'experience' => 'required',
-    'user_id' => 'required',
-    'specialist_id' => 'required',
-    'created_by_id' => 'required',
-    'updated_by_id' => 'required',
+            'about_doctor' => 'required',
+            'charge' => 'required',
+            'experience' => 'required',
+            'user_id' => 'required',
+            'specialist_id' => 'required',
+            'created_by_id' => 'required',
+            'updated_by_id' => 'required',
         ]);
-  
+
         $doctor = Doctor::find($this->doctor_id);
         $doctor->update([
-        'doctor_id' => $this->doctor_id,
-        'about_doctor' => $this->about_doctor,
-        'charge' => $this->charge,
-        'experience' => $this->experience,
-        'user_id' => $this->user_id,
-        'specialist_id' => $this->specialist_id,
-        'created_by_id' => $this->created_by_id,
-        'updated_by_id' => $this->updated_by_id,
+            'doctor_id' => $this->doctor_id,
+            'about_doctor' => $this->about_doctor,
+            'charge' => $this->charge,
+            'experience' => $this->experience,
+            'user_id' => $this->user_id,
+            'specialist_id' => $this->specialist_id,
+            'created_by_id' => $this->created_by_id,
+            'updated_by_id' => $this->updated_by_id,
         ]);
-  
+
         $this->updateMode = false;
-  
+
         session()->flash('message', 'Doctor Updated Successfully.');
         $this->resetInputFields();
     }
-   
+
     /**
      * The attributes that are mass assignable.
      *

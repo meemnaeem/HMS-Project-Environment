@@ -92,8 +92,9 @@
                                                     class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                                         src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $invoice->patient->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a
-                                                    href="{{ url('admin/patient-profile', $invoice->patient->id) }}">{{ $invoice->patient->name }}</a>
+                                                <a href="{{ url('admin/patient-profile', $invoice->patient->id) }}">
+                                                    {{ $invoice->patient->first_name }}
+                                                    {{ $invoice->patient->last_name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ Str::limit($invoice->description, 30) }}</td>

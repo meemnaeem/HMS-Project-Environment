@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Review;
 
 use App\Models\Review;
@@ -151,7 +152,7 @@ class Reviews extends Component
         return view('livewire.admin.review.reviews', [
             'reviews' => $reviews,
         ])
-        ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 

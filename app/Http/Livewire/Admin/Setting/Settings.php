@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Setting;
 
 use Livewire\Component;
@@ -152,7 +153,7 @@ class Settings extends Component
         return view('livewire.admin.setting.settings', [
             'settings' => $settings,
         ])
-        ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 

@@ -25,4 +25,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function dochome()
+    {
+        return view('doctor-home');
+    }
+    public function pathome()
+    {
+        return view('patient-home');
+    }
 }

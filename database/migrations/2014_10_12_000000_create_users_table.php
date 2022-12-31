@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable()->comment('eg., Dr. Prof. Mr. Mrs. Etc.');
-            $table->string('name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -32,7 +33,7 @@ class CreateUsersTable extends Migration
             $table->text('address_1')->nullable();
             $table->text('address_2')->nullable();
             $table->text('description')->nullable();
-            $table->integer('image')->nullable();
+            $table->string('image')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->foreignId('created_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('updated_by_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');

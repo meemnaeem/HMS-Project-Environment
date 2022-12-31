@@ -86,9 +86,9 @@
                                             <h2 class="table-avatar" {{-- {{ route('admin.patient.show', $patient->id) }} --}} ">
                                                 <a href="{{ url('admin/patient-profile', $patient->id) }}" class="avatar avatar-sm mr-2"><img
                                                         class="avatar-img rounded-circle"
-                                                        src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $patient->image ?? 2) }}.jpg"
+                                                        src="{{ Storage::url($patient->image) }}"
                                                 alt="User Image"></a>
-                                                <a href="{{ url('admin/patient-profile', $patient->id) }}">{{ $patient->name }}</a>
+                                                <a href="{{ url('admin/patient-profile', $patient->id) }}">{{ $patient->first_name }} {{ $patient->last_name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ $patient->age }}</td>
@@ -110,7 +110,7 @@
                                             </div>
                                         </td>
                                     </tr>
-@empty
+                            @empty
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -119,7 +119,7 @@
                                         </td>
                                         <td></td>
                                     </tr>
-                                                                     @endforelse
+                                 @endforelse
 
                             </tbody>
                         </table>

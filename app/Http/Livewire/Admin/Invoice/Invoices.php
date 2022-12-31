@@ -262,7 +262,7 @@ class Invoices extends Component
     public function render()
     {
         return view('livewire.admin.invoice.invoices')
-            ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 

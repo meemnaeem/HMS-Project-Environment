@@ -18,7 +18,8 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->integer('title')->nullable()->comment('Mr. Mrs. Sir. Etc.');
-            $table->string('name')->nullable()->fulltext()->comment('full name of the patient');
+            $table->string('first_name')->nullable()->fulltext()->comment('first name of the patient');
+            $table->string('last_name')->nullable()->fulltext()->comment('last name of the patient');
             $table->date('dob')->nullable()->comment('numbers only');
             $table->integer('age')->nullable()->comment('numbers only');
             $table->string('gender')->nullable()->comment('M = Male, F = Female');
@@ -27,16 +28,17 @@ return new class extends Migration
             $table->string('referral')->nullable()->comment('1 = Yes, 2 = No');
             $table->string('referred_by')->nullable();
             $table->integer('patient_type')->nullable()->comment('1 = Inpatient, 2 = Outpatient');
-            $table->integer('religion')->nullable();
-            $table->string('country')->nullable();
-            $table->text('home_address')->nullable();
-            $table->integer('image')->nullable();
+            $table->string('image')->nullable();
             $table->string('marital_status')->nullable()->comment('S = Single, D = Divorce, M = Married');
             $table->string('blood_group')->nullable();
             $table->string('email')->nullable()->comment('Email id preferred to be contacted');
             $table->string('phone')->nullable()->comment('Phone number preferred to be contacted');
             $table->string('address_1')->nullable();
             $table->string('address_2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('country')->nullable();
             $table->string('father_name')->nullable();
             $table->text('father_address')->nullable();
             $table->string('father_phone')->nullable();

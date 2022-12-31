@@ -79,19 +79,21 @@
                                                         src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $review->patient->user->image) }}.jpg"
                                                         alt="User Image"></a>
                                                 <a href="{{ url('admin/patient-profile', $review->patient_id) }}">
-                                                    {{ $review->patient->user->name }}
+                                                    {{ $review->patient->first_name }}
+                                                    {{ $review->patient->last_name }}
                                                     {{-- {{ $review->patient_id }} --}}
                                                 </a>
                                             </h2>
                                         </td>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="{{ url('admin/user', $review->user_id) }}"
+                                                <a href="{{ url('admin/user', $review->doctor_id) }}"
                                                     class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                                        src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $review->user->image) }}.jpg"
+                                                        src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $review->doctor->user->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a href="{{ url('admin/user', $review->user_id) }}">
-                                                    {{ $review->user->name }}
+                                                <a href="{{ url('admin/user', $review->doctor_id) }}">
+                                                    {{ $review->doctor->user->first_name }}
+                                                    {{ $review->doctor->user->last_name }}
                                                     {{-- {{ $review->user_id }} --}}
                                                 </a>
                                             </h2>

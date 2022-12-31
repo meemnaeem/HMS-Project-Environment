@@ -1,213 +1,151 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Profile;
+
 
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 
 class Profiles extends Component
 {
-    public $state = [];
-    public $showEditModal = false;
-    public $showDetailModal = false;
+    use WithFileUploads;
+
+    public $userarr = [];
     public $user;
-    public $userIdBeingRemoved = null;
-    public $selectAll = false;
-    public $checked = [];
-    public $search = '';
-    public $currentUrl;
-    public $deleteId = '';
-    public $usersQuery = '';
+    public $newImage;
+    public $oldImage;
+
+    // multistep wizarform
+    public $currentStep = 1;
+    protected $listeners = ['page-refresh' => '$refresh'];
 
 
     public function mount()
     {
-        $this->currentUrl = Route::current()->getName();
-        // dd($this->currentUrl);
+        $this->user = Auth::user();
     }
 
-    public function getUsersQueryProperty()
+    public function edit($id)
     {
-        return User::search($this->search);
+        $this->userarr = User::findOrFail($id)->toArray();
+        $this->oldImage = $this->userarr['image'];
+        $this->dispatchBrowserEvent('show-user-modal', [
+            'id' => $id,
+        ]);
     }
 
-    public function addNew()
+    // multistep wizarform
+    public function firstStepSubmit()
     {
-        $this->state = [];
-        $this->showEditModal = false;
-        $this->dispatchBrowserEvent('show-modal');
-    }
-
-    public function createUser()
-    {
-        $validatedData = Validator::make($this->state, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+        Validator::make($this->userarr, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->user)
+            ],
+            'description' => 'required',
         ])->validate();
-        $validatedData['password'] = bcrypt($validatedData['password']);
 
-        User::create($validatedData);
-        // session()->flash('message', 'User added successfully!');
-        $this->dispatchBrowserEvent('hide-modal', ['message' => 'User added successfully!']);
+        $this->currentStep = 2;
     }
 
-    public function edit(User $user)
+    /**
+     * Write code on Method
+     */
+    public function secondStepSubmit()
     {
-        $this->showDetailModal = false;
-        $this->showEditModal = true;
-        $this->user = $user;
-        $this->state = $user->toArray();
-        $this->dispatchBrowserEvent('show-modal');
-    }
-
-    public function updateUserBasic()
-    {
-        $validatedData = Validator::make($this->state, [
-            'name' => 'required',
-            'address_1' => 'required',
-            'description' => 'required|string|min:100|max:1000',
-        ])->validate();
-        $this->user->update($validatedData);
-        $this->state = [];
-
-
-        // To refresh the page after submitting:
-        return redirect(request()->header('Referer'));
-
-        $this->dispatchBrowserEvent('hide-modal', ['message' => 'Profile basic information updated successfully!']);
-    }
-
-    public function editPersonal(User $user)
-    {
-        $this->showDetailModal = true;
-        $this->showEditModal = true;
-        $this->user = $user;
-        $this->state = $user->toArray();
-        $this->dispatchBrowserEvent('show-modal');
-    }
-
-    public function updateUserPersonal()
-    {
-        $validatedData = Validator::make($this->state, [
-            'dob' => 'required',
+        Validator::make($this->userarr, [
             'phone' => 'required',
+            'file' => 'sometimes|required|image|mimes:png,jpg,gif|max:2048',
+            'age' => 'required',
+            'address_1' => 'required',
         ])->validate();
-        $this->user->update($validatedData);
-        $this->state = [];
 
-        // To refresh the page after submitting:
-        return redirect(request()->header('Referer'));
-
-        $this->dispatchBrowserEvent('hide-modal', ['message' => 'Profile details updated successfully!']);
+        $this->currentStep = 3;
     }
+
+    /**
+     * Write code on Method
+     */
+    public function submitForm()
+    {
+        $image = $this->userarr['image'];
+        if ($this->newImage) {
+
+            $extension = $this->newImage->getClientOriginalExtension();
+            $filename = $this->userarr['id'] . '-' . date('Y-m-d-Hms', time()) . '.' . $extension;
+            $image = $this->newImage->storeAs('users', $filename);
+            if ($this->oldImage) {
+                Storage::delete($this->oldImage);
+            }
+        }
+        $user = User::findOrFail($this->userarr['id'])->update([
+            'first_name' => $this->userarr['first_name'],
+            'last_name' => $this->userarr['last_name'],
+            'email' => $this->userarr['email'],
+            'description' => $this->userarr['description'],
+            'phone' => $this->userarr['phone'],
+            'age' => $this->userarr['age'],
+            'address_1' => $this->userarr['address_1'],
+            'image' => $image,
+        ]);
+        $this->emit('hide-modal-swal', [
+            'title' => 'User updated successfully!',
+            'icon' => 'success',
+            'iconColor' => 'green',
+        ]);
+
+        $this->resetForm();
+        $this->currentStep = 1;
+        $this->emit('page-refresh');
+    }
+
+    /**
+     * Write code on Method
+     */
+    public function back($step)
+    {
+        $this->currentStep = $step;
+    }
+
+    /**
+     * Write code on Method
+     */
+    public function resetForm()
+    {
+        $this->userarr = [];
+    }
+
+    // End of multistep wizardform
 
     public function changePassword(UpdatesUserPasswords $updater)
     {
         $updater->update(
             auth()->user(),
-            $attributes = Arr::only($this->state, ['current_password', 'password', 'password_confirmation'])
+            $attributes = Arr::only($this->userarr, ['current_password', 'password', 'password_confirmation'])
         );
 
-        collect($attributes)->map(fn ($value, $key) => $this->state[$key] = '');
-        $this->dispatchBrowserEvent('updated', ['message' => 'Password changed successfully!']);
+        collect($attributes)->map(fn ($value, $key) => $this->userarr[$key] = '');
+        $this->emit('updated', [
+            'title' => 'Password updated successfully!',
+            'icon' => 'success',
+            'iconColor' => 'green',
+        ]);
     }
-
-    public function confirmUserRemoval($userId)
-    {
-        $this->userIdBeingRemoved = $userId;
-        $this->dispatchBrowserEvent('show-delete-modal');
-    }
-
-    public function deleteUser()
-    {
-        $user = User::findOrFail($this->userIdBeingRemoved);
-        $user->delete();
-        $this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'User deleted successfully!']);
-    }
-
-    public function changeStatus($userId, $status)
-    {
-        // dd($status);
-        $updateStatus = $status == 0 ? 1 : 0;
-        User::find($userId)->update(['status' => $updateStatus]);
-    }
-
-    public function getUsersProperty()
-    {
-        $usersQuery = User::search($this->search);
-        // return $this->usersQuery->paginate();
-    }
-
-    public function updatedSelectAll($value)
-    {
-        if ($value) {
-            $this->checked = User::get()->pluck('id')->map(fn ($value) => (string) $value)->toArray();
-        } else {
-            $this->checked = [];
-        }
-    }
-
-    public function updatedChecked()
-    {
-        if (count($this->checked) == User::count()) {
-            $this->selectAll = true;
-        } else {
-            $this->selectAll = false;
-        }
-    }
-
-    public function SelectAllRecord()
-    {
-        $this->checked = User::get()->pluck('id')->map(fn ($value) => (string) $value)->toArray();
-    }
-
-    public function deleteId($id)
-    {
-        $this->deleteId = $id;
-    }
-
-    public function confirmUsersRemoval($userId)
-    {
-        if (!empty($this->deleteId)) {
-            $this->userIdBeingRemoved = $userId;
-            $this->dispatchBrowserEvent('show-delete-modal');
-        } else {
-            $this->dispatchBrowserEvent('show-multi-delete-modal');
-        }
-    }
-
-    public function delete()
-    {
-        if (!empty($this->deleteId)) {
-            User::find($this->deleteId)->delete();
-        } else {
-            User::whereIn('id', $this->checked)->delete();
-        }
-        // $this->dispatchBrowserEvent('hideModal');
-        $this->selectAll = false;
-        $this->checked = [];
-        $this->dispatchBrowserEvent('hide-multi-delete-modal', ['message' => 'Selected users deleted successfully!']);
-    }
-
 
     public function render()
     {
-        $users = User::search($this->search)->latest()->paginate();
-        return view('livewire.admin.profile.profiles', [
-            'users' => $users,
-        ])
-        ->extends('layouts.app')
+        return view('livewire.admin.user-profile.user-profile')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
-
-    // public function index()
-    // {
-    //     return view('admin.profile.index');
-    // }
 }

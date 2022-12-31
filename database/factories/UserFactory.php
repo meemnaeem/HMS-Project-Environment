@@ -22,7 +22,8 @@ class UserFactory extends Factory
             // 'remember_token' => Str::random(10),
 
             'title' => $this->faker->title(),
-            'name' => $this->faker->name,
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
             'username' => $this->faker->userName(),
             'email' => $this->faker->email(),
             'password' => bcrypt('Rokhan123'),

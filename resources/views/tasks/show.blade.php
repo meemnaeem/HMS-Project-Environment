@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('content')
     <h1>Showing Task {{ $task->title }}</h1>
 

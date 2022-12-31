@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 
 {{--  popper.js CSS example  --}}
 <style>

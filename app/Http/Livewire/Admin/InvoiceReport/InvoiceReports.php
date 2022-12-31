@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\InvoiceReport;
 
 use App\Models\Invoice;
@@ -151,7 +152,7 @@ class InvoiceReports extends Component
         return view('livewire.admin.invoice-report.invoice-reports', [
             'invoices' => $invoices,
         ])
-        ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 

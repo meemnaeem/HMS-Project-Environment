@@ -2,11 +2,11 @@
     <!-- Page Header -->
     <div class="page-header">
         <div class="row">
-            <div class="col-sm-7 col-auto">
-                <h3 class="page-title">List of Doctors!</h3>
+            <div class="col">
+                <h3 class="page-title">List of Users!</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Users</li>
+                    <li class="breadcrumb-item active">User Profile</li>
                 </ul>
             </div>
         </div>
@@ -19,23 +19,18 @@
                 <div class="row align-items-center">
                     <div class="col-auto profile-image">
                         <a href="#">
-                            <img class="rounded-circle" alt="User Image"
-                                src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . Auth::user()->image) }}.jpg">
+                            <img class="rounded-circle" alt="User Image" src="{{ Storage::url($user->image) }}">
                         </a>
                     </div>
                     <div class="col ml-md-n2 profile-user-info">
-                        <h4 class="user-name mb-0">{{ Auth::user()->name }}</h4>
-                        <h6 class="text-muted">{{ Auth::user()->email }}</h6>
-                        <div class="user-Location"><i class="fa fa-map-marker"></i> {{ Auth::user()->address_1 }}
+                        <h4 class="user-name mb-0">{{ $user->first_name }} {{ $user->last_name }}</h4>
+                        <h6 class="text-muted">{{ $user->email }}</h6>
+                        <div class="user-Location"><i class="fa fa-map-marker"></i> {{ $user->address_1 }}
                         </div>
-                        <div class="about-text">{{ Auth::user()->description }}</div>
+                        <div class="about-text">{{ $user->description }}</div>
                     </div>
                     <div class="col-auto profile-btn">
-
-
-                        <a wire:click.prevent="edit({{ Auth::user() }})" class="btn btn-primary btn-sm">Edit</a>
-
-
+                        <a wire:click.prevent="edit({{ $user->id }})" class="btn btn-primary btn-sm">Edit</a>
                     </div>
                 </div>
             </div>
@@ -61,139 +56,30 @@
                                 <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between">
                                         <span>Personal Details</span>
-
-                                        <a class="edit-link" data-toggle="modal" href="#edit_personal_details"
-                                            wire:click.prevent="editPersonal({{ Auth::user() }})"><i
-                                                class="fa fa-edit mr-1"></i>Edit</a>
                                     </h5>
                                     <div class="row">
                                         <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
-                                        <p class="col-sm-10">{{ Auth::user()->name }}</p>
+                                        <p class="col-sm-10">{{ $user->first_name }} {{ $user->last_name }}</p>
                                     </div>
                                     <div class="row">
-                                        <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Date of
-                                            Birth</p>
-                                        <p class="col-sm-10">{{ Auth::user()->dob }}</p>
+                                        <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Age</p>
+                                        <p class="col-sm-10">{{ $user->age }}</p>
                                     </div>
                                     <div class="row">
                                         <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Email ID</p>
-                                        <p class="col-sm-10">{{ Auth::user()->email }}</p>
+                                        <p class="col-sm-10">{{ $user->email }}</p>
                                     </div>
                                     <div class="row">
                                         <p class="col-sm-2 text-muted text-sm-right mb-0 mb-sm-3">Mobile</p>
-                                        <p class="col-sm-10">{{ Auth::user()->phone }}</p>
+                                        <p class="col-sm-10">{{ $user->phone }}</p>
                                     </div>
                                     <div class="row">
                                         <p class="col-sm-2 text-muted text-sm-right mb-0">Address</p>
-                                        <p class="col-sm-10 mb-0">{{ Auth::user()->address_1 }}
-                                            {{-- <br>
-                                        Miami,<br>
-                                        Florida - 33165,<br>
-                                        United States.</p> --}}
+                                        <p class="col-sm-10 mb-0">{{ $user->address_1 }}
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Edit Details Modal -->
-                            {{-- <div class="modal fade" id="edit_personal_details" aria-hidden="true" role="dialog">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Personal Details</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="row form-row">
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>First Name</label>
-                                                            <input type="text" class="form-control" value="John">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Last Name</label>
-                                                            <input type="text" class="form-control" value="Doe">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label>Date of Birth</label>
-                                                            <div class="cal-icon">
-                                                                <input type="text" class="form-control"
-                                                                    value="24-07-1983">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Email ID</label>
-                                                            <input type="email" class="form-control"
-                                                                value="johndoe@example.com">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Mobile</label>
-                                                            <input type="text" value="+1 202-555-0125"
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h5 class="form-title"><span>Address</span></h5>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label>Address</label>
-                                                            <input type="text" class="form-control"
-                                                                value="4663 Agriculture Lane">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>City</label>
-                                                            <input type="text" class="form-control"
-                                                                value="Miami">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>State</label>
-                                                            <input type="text" class="form-control"
-                                                                value="Florida">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Zip Code</label>
-                                                            <input type="text" class="form-control"
-                                                                value="22434">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>Country</label>
-                                                            <input type="text" class="form-control"
-                                                                value="United States">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary btn-block">Save
-                                                    Changes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <!-- /Edit Details Modal -->
-
                         </div>
-
-
                     </div>
                     <!-- /Personal Details -->
 
@@ -210,7 +96,7 @@
                                 <div class="col-md-10 col-lg-6">
 
                                     {{-- Password update form --}}
-                                    @include('livewire.admin.profile.password-update-form')
+                                    @include('livewire.admin.user-profile.password-update-form')
 
                                 </div>
                             </div>
@@ -227,17 +113,37 @@
 
 
     <!-- Add Modal -->
-    @include('livewire.admin.profile.addEdit-modal')
-    {{-- <x-modals.addModal :data="$patient" /> --}}
-
-    {{-- Delete modal --}}
-    @include('livewire.admin.profile.delete-profile')
-    {{-- <x-modals.delete :data="$patient" /> --}}
-
-    @include('livewire.admin.profile.delete-profiles')
-    {{-- <x-modals.delete :data="$patient" /> --}}
-
-    <!-- Edit Details Modal -->
-    {{-- <x-modals.updateModal :data="$patient" /> --}}
-    {{-- <x-modals.modal :data="$patient" /> --}}
+    @include('livewire.admin.user-profile.addEdit-modal')
+    {{-- <x-modals.addModal :data="$user" /> --}}
 </div>
+
+@push('scripts')
+    <script>
+        Livewire.on('updated', function(e) {
+            Swal.fire({
+                title: e.title,
+                icon: e.icon,
+                iconColor: e.iconColor,
+                timer: 3000,
+                toast: true,
+                position: 'top-right',
+                timeProgressBass: true,
+                showConfirmButton: false
+            });
+        });
+
+        Livewire.on('hide-modal-swal', function(e) {
+            $("#myModal").modal('hide');
+            Swal.fire({
+                title: e.title,
+                icon: e.icon,
+                iconColor: e.iconColor,
+                timer: 3000,
+                toast: true,
+                position: 'top-right',
+                timeProgressBass: true,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endpush

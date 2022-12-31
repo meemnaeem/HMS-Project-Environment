@@ -20,9 +20,9 @@ class Patient extends Model
     protected $fillable  = [
         'registration_no', 'registration_date', 'referral',
         'referred_by', 'patient_type', 'title',
-        'name', 'dob', 'age',
+        'first_name', 'last_name', 'dob', 'age',
         'gender', 'marital_status', 'blood_group',
-        'email', 'phone', 'religion',
+        'email', 'description', 'phone', 'religion',
         'occupation', 'country', 'home_phone',
         'home_address', 'address_1', 'father_name', 'father_address',
         'father_phone', 'mother_name', 'mother_address',

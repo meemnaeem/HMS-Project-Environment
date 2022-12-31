@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Transaction;
 
 use Livewire\Component;
@@ -152,7 +153,7 @@ class Transactions extends Component
         return view('livewire.admin.transaction.transactions', [
             'transactions' => $transactions,
         ])
-        ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 

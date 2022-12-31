@@ -8,3 +8,4 @@
 -   SASS
 -   Everything tested and working
 -   Admin section completed. Everything tested and working
+-   User and patient profiles perfect

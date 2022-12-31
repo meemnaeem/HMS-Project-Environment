@@ -13,7 +13,7 @@
 
         <div class="mb-3">
             <label for="current_password" class="form-label">Old Password</label>
-            <input wire:model.defer="state.current_password" type="password"
+            <input wire:model.defer="userarr.current_password" type="password"
                 class="form-control @error('current_password') is-invalid @enderror" id="current_password">
             @error('current_password')
                 <span class="text-danger">{{ $message }}</span>
@@ -21,7 +21,7 @@
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">New Password</label>
-            <input wire:model.defer="state.password" type="password"
+            <input wire:model.defer="userarr.password" type="password"
                 class="form-control @error('password') is-invalid @enderror" id="password">
             @error('password')
                 <span class="text-danger">{{ $message }}</span>
@@ -30,7 +30,7 @@
         <div class="mb-3">
             <label for="password_confirmation" class="form-label">Confirm New
                 Password</label>
-            <input wire:model.defer="state.password_confirmation" type="password" class="form-control"
+            <input wire:model.defer="userarr.password_confirmation" type="password" class="form-control"
                 id="password_confirmation">
         </div>
 

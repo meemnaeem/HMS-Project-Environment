@@ -66,11 +66,22 @@
         <div class="col-md-12">
             {{-- <h3> Step 2</h3> --}}
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" wire:model.defer="patientarr.name" name="name" value="userarr.name"
-                    class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="nameHelp"
-                    placeholder="Enter your name">
-                @error('name')
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" wire:model.defer="patientarr.first_name" name="first_name"
+                    value="userarr.first_name" class="form-control @error('first_name') is-invalid @enderror"
+                    id="first_name" aria-describedby="first_nameHelp" placeholder="Enter your first_name">
+                @error('first_name')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" wire:model.defer="patientarr.last_name" name="last_name" value="userarr.last_name"
+                    class="form-control @error('last_name') is-invalid @enderror" id="last_name"
+                    aria-describedby="last_nameHelp" placeholder="Enter your last_name">
+                @error('last_name')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

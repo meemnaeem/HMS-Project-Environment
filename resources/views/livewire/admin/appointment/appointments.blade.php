@@ -83,8 +83,8 @@
                                                     class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
                                                         src="{{ URL::asset('doccure/admin/assets/img/profiles/avatar-0' . $appointment->user->image) }}.jpg"
                                                         alt="User Image"></a>
-                                                <a
-                                                    href="{{ url('admin/user', $appointment->user->id) }}">{{ $appointment->user->name }}</a>
+                                                <a href="{{ url('admin/user', $appointment->user->id) }}">{{ $appointment->user->first_name }}
+                                                    {{ $appointment->user->last_name }}</a>
                                             </h2>
                                         </td>
                                         <td>
@@ -94,7 +94,8 @@
                                                         src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $appointment->patient->image) }}.jpg"
                                                         alt="User Image"></a>
                                                 <a
-                                                    href="{{ url('admin/patient-profile', $appointment->patient->id) }}">{{ $appointment->patient->name }}</a>
+                                                    href="{{ url('admin/patient-profile', $appointment->patient->id) }}">{{ $appointment->patient->first_name }}
+                                                    {{ $appointment->patient->last_name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ $appointment->date }}</td>

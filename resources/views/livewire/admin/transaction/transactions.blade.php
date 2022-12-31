@@ -82,7 +82,8 @@
                                                         src="{{ URL::asset('doccure/admin/assets/img/patients/patient' . $transaction->patient->image) }}.jpg"
                                                         alt="User Image"></a>
                                                 <a href="{{ url('admin/patient-profile', $transaction->patient_id) }}">
-                                                    {{ $transaction->patient->name }}
+                                                    {{ $transaction->patient->first_name }}
+                                                    {{ $transaction->patient->last_name }}
                                                     {{-- {{ $transaction->patient_id }} --}}
                                                 </a>
                                             </h2>

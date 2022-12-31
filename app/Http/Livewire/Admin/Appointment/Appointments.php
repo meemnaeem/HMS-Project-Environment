@@ -151,7 +151,7 @@ class Appointments extends Component
         return view('livewire.admin.appointment.appointments', [
             'appointments' => $appointments,
         ])
-            ->extends('layouts.app');
+            ->extends('layouts.admin.app');
     }
 
     // public function index()

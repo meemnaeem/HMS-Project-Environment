@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Admin\Speciality;
 
 use App\Models\Speciality;
@@ -155,7 +156,7 @@ class Specialities extends Component
         return view('livewire.admin.speciality.specialities', [
             'specialities' => $specialities,
         ])
-        ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 

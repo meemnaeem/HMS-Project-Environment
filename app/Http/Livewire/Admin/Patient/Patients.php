@@ -87,7 +87,8 @@ class Patients extends Component
     public function secondStepSubmit()
     {
         Validator::make($this->patientarr, [
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'phone' => 'required',
             'image' => 'required',
             'age' => 'required',
@@ -111,7 +112,8 @@ class Patients extends Component
             );
             Patient::find($this->patientarr['id'])->update(
                 [
-                    'name' => $this->patientarr['name'],
+                    'first_name' => $this->patientarr['first_name'],
+                    'last_name' => $this->patientarr['last_name'],
                     'phone' => $this->patientarr['phone'],
                     'image' => $this->patientarr['image'],
                     'age' => $this->patientarr['age'],
@@ -126,7 +128,8 @@ class Patients extends Component
             ]);
             Patient::create(
                 [
-                    'name' => $this->patientarr['name'],
+                    'first_name' => $this->patientarr['first_name'],
+                    'last_name' => $this->patientarr['last_name'],
                     'phone' => $this->patientarr['phone'],
                     'image' => $this->patientarr['image'],
                     'age' => $this->patientarr['age'],
@@ -249,7 +252,7 @@ class Patients extends Component
         return view('livewire.admin.patient.patients', [
             'patients' => $patients,
         ])
-            ->extends('layouts.app')
+            ->extends('layouts.admin.app')
             ->section('content');
     }
 }
